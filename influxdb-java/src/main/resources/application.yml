@@ -1,0 +1,9 @@
+server:
+  port: 8091
+spring:
+  influx:
+    url: http://1.15.106.156:8086
+    database: serverInfo
+    username: root
+    password: root
+    retentionPolicy: serverInfo_policy

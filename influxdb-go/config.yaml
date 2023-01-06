@@ -1,0 +1,7 @@
+server:
+  port: 8090
+
+influxdb:
+  url: "http://1.15.106.156:8086"
+  username: root
+  password: root
