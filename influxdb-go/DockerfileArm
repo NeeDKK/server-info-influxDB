@@ -8,9 +8,9 @@ RUN go env -w GOPROXY=https://goproxy.cn,direct
 RUN go env -w CGO_ENABLED=0
 RUN go env
 RUN go mod tidy
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o server .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o server .
 
-FROM needkk/alpine-amd64:latest
+FROM needkk/alpine-arm64:latest
 
 WORKDIR /go/src/influxdb-go
 

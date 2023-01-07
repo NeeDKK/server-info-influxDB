@@ -1,0 +1,6 @@
+FROM arm64v8/openjdk:8
+VOLUME /tmp
+ENV LANG en_GB.UTF-8
+EXPOSE 8091
+ADD ./target/influxdb-java-v1.0.jar influxdb-java.jar
+ENTRYPOINT ["java","-jar","influxdb-java.jar"]
