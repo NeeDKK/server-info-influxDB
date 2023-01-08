@@ -1,7 +1,9 @@
 package com.needkk.influxdbjava.controller;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.needkk.influxdbjava.common.Result;
+import com.needkk.influxdbjava.service.ServerInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -11,20 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class GetInfoController {
-    @Value("${spring.influx.url}")
-    private String influxDBUrl;
-    @Value("${spring.influx.username}")
-    private String userName;
-
-    @Value("${spring.influx.password}")
-    private String password;
-
-    @Value("${spring.influx.database}")
-    private String database;
 
 
-    @GetMapping("/getInfo")
-    public String getInfo() {
-        return influxDBUrl + " " + userName + " " + password + " " + database;
+    @Autowired
+    private ServerInfoService serverInfoService;
+
+    @PostMapping("/getInfo")
+    public Result getInfo() {
+        return Result.success(serverInfoService.getLastOneHourInfo());
     }
 }

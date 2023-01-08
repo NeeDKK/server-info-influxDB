@@ -5,9 +5,15 @@ import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.Point;
 import org.influxdb.dto.Query;
 import org.influxdb.dto.QueryResult;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import java.sql.Timestamp;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -70,7 +76,7 @@ public class InfluxDBTemplate {
      */
     public void write(String measurement, Map<String, String> tags, Map<String, Object> fields, long time, TimeUnit unit) {
         Point point = Point.measurement(measurement).tag(tags).fields(fields).time(time, unit).build();
-        influxDB.write(influxdbProperties.getDatabase(),influxdbProperties.getRetentionPolicy(),point);
+        influxDB.write(influxdbProperties.getDatabase(), influxdbProperties.getRetentionPolicy(), point);
         close();
     }
 
@@ -93,6 +99,39 @@ public class InfluxDBTemplate {
      */
     public QueryResult query(String command) {
         return influxDB.query(new Query(command));
+    }
+
+    public <T> List<T> queryByType(String command, Class<T> clazz) {
+        List<T> res = new ArrayList<>();
+        QueryResult query = influxDB.query(new Query(command));
+        query.getResults().forEach(result -> {
+            result.getSeries().forEach(series -> {
+                List<String> columns = series.getColumns();
+                List<List<Object>> values = series.getValues();
+                for (int i = 0; i < values.size(); i++) {
+                    T instance = null;
+                    try {
+                        instance = clazz.newInstance();
+                        BeanWrapperImpl beanWrapper = new BeanWrapperImpl(instance);
+                        Map<String, Object> fields = new HashMap<>();
+                        for (int j = 0; j < columns.size(); j++) {
+                            String column = columns.get(j);
+                            Object value = values.get(i).get(j);
+                            if (("time").equals(column)) {
+                                beanWrapper.setPropertyValue("time", Timestamp.from(ZonedDateTime.parse(String.valueOf(value)).toInstant()).getTime());
+                            } else {
+                                fields.put(column, value);
+                            }
+                        }
+                        beanWrapper.setPropertyValue("fields", fields);
+                        res.add(instance);
+                    } catch (InstantiationException | IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        });
+        return res;
     }
 
 

@@ -7,6 +7,7 @@ import (
 	"github.com/NeeDKK/influxdb-go/entity"
 	"github.com/gin-gonic/gin"
 	client "github.com/influxdata/influxdb1-client/v2"
+	"time"
 )
 
 func GetInfo(c *gin.Context) {
@@ -28,7 +29,8 @@ func GetInfo(c *gin.Context) {
 	var cpu []json.Number
 	var mem []json.Number
 	for _, v := range values {
-		times = append(times, v[0].(string))
+		parse, _ := time.Parse("2006-01-02T15:04:05Z", v[0].(string))
+		times = append(times, parse.In(time.FixedZone("CST", 8*3600)).Format("2006-01-02 15:04:05"))
 		cpu = append(cpu, v[1].(json.Number))
 		mem = append(mem, v[2].(json.Number))
 	}
