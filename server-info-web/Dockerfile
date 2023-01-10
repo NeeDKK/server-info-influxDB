@@ -1,6 +1,6 @@
 FROM node:12.16.1
 
-WORKDIR /es-document-search-web/
+WORKDIR /server-info-web/
 COPY . .
 
 RUN npm install
@@ -15,7 +15,7 @@ RUN rm /etc/nginx/conf.d/default.conf
 RUN rm /etc/nginx/nginx.conf
 # 把主机的nginx.conf文件复制到nginx容器的/etc/nginx文件夹下
 COPY .docker-compose/nginx.conf /etc/nginx/
-COPY --from=0 /es-document-search-web/dist /usr/share/nginx/html
+COPY --from=0 /server-info-web/dist /usr/share/nginx/html
 
-# 暴露2333端口
-EXPOSE 2333
+# 暴露8888端口
+EXPOSE 8888
