@@ -8,12 +8,20 @@ module.exports = {
         https: false,
         hotOnly: false,
         proxy: {
-            '/api': {
-                target: 'http://127.0.0.1:9999',
+            '/api/java': {
+                target: 'http://1.15.106.156:8091',
                 ws: true,
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/api': ''
+                    '^/api/java': ''
+                }
+            },
+            '/api/go': {
+                target: 'http://1.15.106.156:8090',
+                ws: true,
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/api/go': ''
                 }
             }
         },

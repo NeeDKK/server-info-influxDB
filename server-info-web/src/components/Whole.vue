@@ -30,8 +30,8 @@ export default {
     return {
       itemList: [    // 水平一级菜单栏的菜单
         {path: '/', title: '首页'},
-        {path: '/search', title: 'golang服务器监控'},
-        {path: '/upload', title: 'java服务器监控'},
+        {path: '/golang', title: 'golang服务器监控'},
+        {path: '/java', title: 'java服务器监控'},
       ],
     }
   },

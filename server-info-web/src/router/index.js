@@ -13,14 +13,14 @@ const router = new Router(
                 meta: {title: '首页'},
                 children: [
                     {
-                        path: '/search',
-                        component: () => import('../components/SearchResume.vue'),
-                        meta: {title: 'golang服务器监控'}
+                        path: '/java',
+                        component: () => import('../components/ServerInfoJava.vue'),
+                        meta: {title: 'java服务器监控'}
                     },
                     {
-                        path: '/upload',
-                        component: () => import('../components/UploadResume.vue'),
-                        meta: {title: 'java服务器监控'}
+                        path: '/golang',
+                        component: () => import('../components/ServerInfoGolang.vue'),
+                        meta: {title: 'golang服务器监控'}
                     },
                 ]
             },
@@ -28,5 +28,11 @@ const router = new Router(
     }
 );
 
-
+router.beforeEach((to, from, next) => {
+    /* 路由发生变化修改页面title */
+    if (to.meta.title) {
+        document.title = '服务器监控'
+    }
+    next()
+})
 export default router

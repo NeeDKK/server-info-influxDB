@@ -8,6 +8,8 @@ import 'view-design/dist/styles/iview.css';
 import axios from 'axios';
 import './assets/css/main.css';
 import './assets/css/theme.scss';
+import "echarts"
+import VueEcharts from "vue-echarts"
 
 Vue.config.productionTip = false
 
@@ -15,19 +17,19 @@ Vue.use(ElementUI);
 Vue.use(ViewUI);
 
 const instance = axios.create({
-  baseURL: '/api'
+    baseURL: ''
 });
 
 // 配置过滤response
 instance.interceptors.response.use((response) => {
-  if (response) {
-    if (response.data.code === 'FALSE') {
-      return 'FALSE';
+    if (response) {
+        if (response.data.code === 'FALSE') {
+            return 'FALSE';
+        }
+        return response;
     }
-    return response;
-  }
 }, error => {
-  return Promise.reject(error);
+    return Promise.reject(error);
 });
 
 // 跨域请求时是否需要使用凭证
@@ -36,9 +38,13 @@ instance.defaults.headers.post['Content-Type'] = 'application/json';
 instance.defaults.headers.get['Content-Type'] = 'application/json';
 
 Vue.prototype.$axios = instance;
-axios.defaults.baseURL = 'http://localhost:9999';
+//axios.defaults.baseURL = 'http://1.15.106.156:9999';
+//Vue.prototype.$echarts = echarts;
+Vue.component("VueEcharts", VueEcharts)
+
+
 
 new Vue({
-  router,
-  render: h => h(App),
+    router,
+    render: h => h(App),
 }).$mount('#app')
