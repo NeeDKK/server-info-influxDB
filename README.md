@@ -9,9 +9,11 @@
 </h1>
 
 动态展示服务器cpu,内存等占用情况
+<br/>
+demo: http://server-info.needkk.com
 <br>
 <p align="center">
-  <img alt="server-info" src="https://cdn.jsdelivr.net/gh/NeeDKK/cloudimg@master/data/server-info.gif">
+  <img alt="server-info" src="https://cdn.jsdelivr.net/gh/NeeDKK/cloudimg@master/data/server-info-compress.gif">
 </p>
 
 # 施工中?。。。
