@@ -11,7 +11,7 @@
 动态展示服务器cpu,内存等占用情况
 <br>
 <p align="center">
-  <img alt="server-info" src="http://picture.needkk.com/images/server-info.gif">
+  <img alt="server-info" src="https://cdn.jsdelivr.net/gh/NeeDKK/cloudimg@master/data/server-info.gif">
 </p>
 
 # 施工中?。。。
