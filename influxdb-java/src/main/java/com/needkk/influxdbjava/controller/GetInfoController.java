@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class GetInfoController {
 
 
-    @Autowired
-    private ServerInfoService serverInfoService;
+    private final ServerInfoService serverInfoService;
+
+    public GetInfoController(ServerInfoService serverInfoService) {
+        this.serverInfoService = serverInfoService;
+    }
 
     @PostMapping("/getInfo")
     public Result getInfo() {

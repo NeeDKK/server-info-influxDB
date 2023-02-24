@@ -20,11 +20,15 @@ import java.util.List;
 @Service
 public class ServerInfoServiceImpl implements ServerInfoService {
 
-    @Autowired
-    private InfluxDBTemplate influxDBTemplate;
+    private final InfluxDBTemplate influxDBTemplate;
+
+    public ServerInfoServiceImpl(InfluxDBTemplate influxDBTemplate) {
+        this.influxDBTemplate = influxDBTemplate;
+    }
 
     @Override
     public ServerInfoVO getLastOneHourInfo() {
+        // 查询最近一小时的数据
         List<ServerInfoDTO> serverInfoDTOList = influxDBTemplate.queryByType("SELECT *::field from serverInfo_java where time>=now()-1h", ServerInfoDTO.class);
         ServerInfoVO serverInfoVO = new ServerInfoVO();
         List<String> times = new ArrayList<>();

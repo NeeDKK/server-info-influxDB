@@ -29,7 +29,6 @@ public class InfluxDBTemplate {
 
     private final InfluxdbProperties influxdbProperties;
 
-    @Autowired
     public InfluxDBTemplate(InfluxdbProperties influxdbProperties) {
         this.influxdbProperties = influxdbProperties;
         getConn();

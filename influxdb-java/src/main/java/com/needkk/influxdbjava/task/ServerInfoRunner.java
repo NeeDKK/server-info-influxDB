@@ -24,8 +24,7 @@ import java.util.concurrent.*;
 @EnableScheduling
 @EnableAsync
 public class ServerInfoRunner {
-    @Autowired
-    private InfluxDBTemplate influxDBTemplate;
+    private final InfluxDBTemplate influxDBTemplate;
 
     private static ThreadFactory namedFactory = new ThreadFactoryBuilder().setNamePrefix("serverInfo-save").build();
 
@@ -40,6 +39,10 @@ public class ServerInfoRunner {
             namedFactory
             //, new ThreadPoolExecutor.DiscardOldestPolicy()
     );
+
+    public ServerInfoRunner(InfluxDBTemplate influxDBTemplate) {
+        this.influxDBTemplate = influxDBTemplate;
+    }
 
 
     @Async
