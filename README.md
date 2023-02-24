@@ -3,7 +3,7 @@
     <img src=./server-info-web/src/assets/logo.png alt="needkk" width=35>
   </a>
   &nbsp;server-info-influxdb&nbsp;
-  <a href="http://server-info.needkk.com"><img src="https://img.shields.io/static/v1?label=server-info-influxDb&color=green&message=start now"/></a>
+  <a href="http://server-info.needkk.com" target="_blank"><img src="https://img.shields.io/static/v1?label=server-info-influxDb&color=green&message=start now"/></a>
   <a href="https://github.com/NeeDKK/server-info-influxDB"><img src="https://img.shields.io/static/v1?label=release&color=blue&message=v1.0"/></a>
   
 </h1>
